@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile("./Day4/data2.txt", 'utf8', (err, data) => {
+fs.readFile("./Day4/data.txt", 'utf8', (err, data) => {
   if (err) {
     console.error('Error:', err);
     return;
@@ -8,15 +8,17 @@ fs.readFile("./Day4/data2.txt", 'utf8', (err, data) => {
   
   const lines = data.split('\n');
   var sumPoints = 0;
+  var matchCount = 0;
+  var points = 0;
   lines.forEach((line, index) => {
     winningNumbers = '';
     gameNumbers = '';
-    matchCount = 0;
     points = 0;
     chars = line.split(' ');
+    matchCount = 0;
     newChars = chars.map(item => item.trim()).filter(Boolean)
-    winningNumbers = newChars.slice(2,7);
-    gameNumbers = newChars.slice(8,16);
+    winningNumbers = newChars.slice(2,12);
+    gameNumbers = newChars.slice(13, 38);
     // console.log(winningNumbers);
     // console.log(gameNumbers);
     
@@ -31,9 +33,9 @@ fs.readFile("./Day4/data2.txt", 'utf8', (err, data) => {
       
     });
 
-    console.log(`Match Count: ${matchCount}`)
-    for(i=0;i==matchCount;i++){
-      if(i==1){
+    console.log(`Match Count: ${matchCount}`);
+    for(var i=0;i<=matchCount-1;i++){
+      if(i==0){
         points = 1;
       }
       else{
@@ -41,7 +43,8 @@ fs.readFile("./Day4/data2.txt", 'utf8', (err, data) => {
       }
     }
     console.log(`Point Total: ${points}`)
+    sumPoints += points;
   });
-
+  console.log(`Final Points Total: ${sumPoints}`);
 });
 
