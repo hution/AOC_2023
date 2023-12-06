@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile("./Day1/data.txt", 'utf8', (err, data) => {
+fs.readFile("./Day1/data2.txt", 'utf8', (err, data) => {
   if (err) {
     console.error('Error:', err);
     return;
@@ -8,12 +8,16 @@ fs.readFile("./Day1/data.txt", 'utf8', (err, data) => {
   
   const lines = data.split('\n');
   var sumNum = 0;
+  const numList = ['one','two','three','four','five','six', 'seven','eight', 'nine','zero'];
+
+  
+  //Day 1 - Part 1 Success
   lines.forEach((line, index) => {
     chars = line.split('');
     let numSolution= "";
     let firstNum = "";
     let lastNum = "";
-   
+    
     chars.forEach((item,charIndex) => {
       if(!isNaN(parseInt(item)) && isFinite(item)==true){
         
