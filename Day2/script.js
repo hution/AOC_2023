@@ -14,6 +14,8 @@ fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
   var numGreen = 0;
   var numRed = 0;
   var gameID = 0;
+  var sumGameID = 0;
+  var winningHand = true;
 
   const lines = data.split('\n');
   lines.forEach((line) => {
@@ -23,58 +25,74 @@ fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
 
     handsSplit = line.split(/:|;/);
     
-    for(var i = 0; i<=handsSplit.length-1;i++){
+    for(var i = 0; i<=handsSplit.length;i++){
       if(i==0){
-        console.log(`${handsSplit[0]}`);
+        // console.log(`${handsSplit[0]}`);
+
       }
       else{
         pulls = handsSplit[i].split(' ');
         cleanPulls = pulls.map(item => item.trim().replace(/,/g, '')).filter(Boolean);
-        
-        console.log(cleanPulls);
-
-      }
-
+        gameIDSplit = handsSplit[0].split(' ');
+        gameID= gameIDSplit[1];
       
-      if(i==1){
-        if(cleanPulls[i]=='blue'){
-          numBlue = cleanPulls[i-1];
-        }else if(cleanPulls[i]=='green'){
-          numBlue = cleanPulls[i-1];
-        }else if(cleanPulls[i]=='red'){
-          numRed=cleanPulls[i-1];
+      
+        for(var j = 0;j<=cleanPulls.length;j++){
+          if(j==1){
+            if(cleanPulls[j]=='blue'){
+              numBlue = cleanPulls[j-1];
+            }else if(cleanPulls[j]=='green'){
+              numGreen = cleanPulls[j-1];
+            }else if(cleanPulls[j]=='red'){
+              numRed=cleanPulls[j-1];
+            }
+          }
+          if(j==3){
+            if(cleanPulls[j]=='blue'){
+              numBlue = cleanPulls[j-1];
+            }else if(cleanPulls[j]=='green'){
+              numGreen = cleanPulls[j-1];
+            }else if(cleanPulls[j]=='red'){
+              numRed=cleanPulls[j-1];
+            }
+          }
+          if(j==5){
+            if(cleanPulls[j]=='blue'){
+              numBlue = cleanPulls[j-1];
+            }else if(cleanPulls[j]=='green'){
+              numGreen = cleanPulls[j-1];
+            }else if(cleanPulls[j]=='red'){
+              numRed=cleanPulls[j-1];
+            }
+          }
         }
       }
-      if(i==3){
-        if(cleanPulls[i]=='blue'){
-          numBlue = cleanPulls[i-1];
-        }else if(cleanPulls[i]=='green'){
-          numBlue = cleanPulls[i-1];
-        }else if(cleanPulls[i]=='red'){
-          numRed=cleanPulls[i-1];
-        }
+      if(numRed <= redMax && numBlue <= blueMax && numGreen <= greenMax){
       }
-      if(i==5){
-        if(cleanPulls[i]=='blue'){
-          numBlue = cleanPulls[i-1];
-        }else if(cleanPulls[i]=='green'){
-          numBlue = cleanPulls[i-1];
-        
-        }else if(cleanPulls[i]=='red'){
-          numRed=cleanPulls[i-1];
-        
-        }
+      else{
+        winningHand = false;
+        break;
       }
       
-      console.log(`Reds: ${numRed}. Green: ${numGreen}. Blue: ${numBlue}.`)
+      
+      
     }
+    if(winningHand == true){
 
-
- 
-
-
+      sumGameID += Number(gameID);
+    }
+    else{
+      winningHand = true;
+    }
+    console.log(`Reds: ${numRed}. Green: ${numGreen}. Blue: ${numBlue}.`)
+    
+    
+    
+    
   });
   
-
+  console.log(sumGameID);
+  
+  
 
 });
