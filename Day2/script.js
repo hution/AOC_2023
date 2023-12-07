@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
+fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
   if (err) {
     console.error('Error:', err);
     return;
@@ -25,7 +25,7 @@ fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
 
     handsSplit = line.split(/:|;/);
     
-    for(var i = 0; i<=handsSplit.length;i++){
+    for(var i = 0; i<handsSplit.length;i++){
       if(i==0){
         // console.log(`${handsSplit[0]}`);
 
@@ -37,7 +37,7 @@ fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
         gameID= gameIDSplit[1];
       
       
-        for(var j = 0;j<=cleanPulls.length;j++){
+        for(var j = 0;j<cleanPulls.length;j++){
           if(j==1){
             if(cleanPulls[j]=='blue'){
               numBlue = cleanPulls[j-1];
@@ -71,12 +71,16 @@ fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
       }
       else{
         winningHand = false;
+        console.log(`Game ${gameID} is impossible`)
+        cleanPulls = [];
+        numBlue = 0;
+        numRed = 0;
+        numGreen = 0;
         break;
       }
       
-      
-      
     }
+
     if(winningHand == true){
 
       sumGameID += Number(gameID);
