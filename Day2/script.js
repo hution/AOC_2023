@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
+fs.readFile("./Day2/data2.txt", 'utf8', (err, data) => {
   if (err) {
     console.error('Error:', err);
     return;
@@ -16,6 +16,10 @@ fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
   var gameID = 0;
   var sumGameID = 0;
   var winningHand = true;
+  var curBlueHigh = 0;
+  var curGreenHigh = 0;
+  var curRedHigh = 0;
+  var sumPowerFewCubes = 0;
 
   const lines = data.split('\n');
   lines.forEach((line) => {
@@ -24,6 +28,10 @@ fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
 
 
     handsSplit = line.split(/:|;/);
+    numBlue = 0;
+    numRed = 0;
+    numGreen = 0;
+
     
     for(var i = 0; i<handsSplit.length;i++){
       if(i==0){
@@ -67,7 +75,17 @@ fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
           }
         }
       }
+
       if(numRed <= redMax && numBlue <= blueMax && numGreen <= greenMax){
+        if(numRed > curRedHigh){
+          curRedHigh = numRed;
+        }
+        if(numBlue > curBlueHigh){
+          curBlueHigh = numBlue;
+        }
+        if(numGreen > curGreenHigh){
+          curGreenHigh = numGreen;
+        }
       }
       else{
         winningHand = false;
@@ -76,6 +94,10 @@ fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
         numBlue = 0;
         numRed = 0;
         numGreen = 0;
+        curGreenHigh = 0;
+        curBlueHigh = 0;
+        curRedHigh = 0;
+        powerFewCubes = 0;
         break;
       }
       
@@ -84,6 +106,8 @@ fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
     if(winningHand == true){
 
       sumGameID += Number(gameID);
+      powerFewCubes = curBlueHigh*curGreenHigh*curRedHigh;
+      sumPowerFewCubes += powerFewCubes;
     }
     else{
       winningHand = true;
@@ -95,8 +119,8 @@ fs.readFile("./Day2/data.txt", 'utf8', (err, data) => {
     
   });
   
-  console.log(sumGameID);
-  
+  console.log(`Sum of the game IDs: ${sumGameID}`);
+  console.log(`Power of fewest Cubes: ${sumPowerFewCubes}`);
   
 
 });
